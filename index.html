@@ -32,10 +32,15 @@ function startArcade(){
  arcade={guys:base.guys.map(([x,y])=>({x,y,alive:true})),walls:base.walls.map(a=>a.slice()),barrels:base.barrels.map(([x,y])=>({x,y,alive:true})),shot:null,aim:{x:260,y:150},tries:0,won:false};
  $('controls').classList.add('hidden');$('prompt').textContent=(language==='ru'?'Уровень ':'Деңгей ')+round;
  $('msg').textContent=language==='ru'?'Нажми на поле — стреляй!':'Алаңды бас — ат!';
- $('choices').innerHTML='<canvas id="arcade" class="arcade" width="330" height="440" aria-label="Игра с рикошетом"></canvas><div class="arcade-note">'+(language==='ru'?'🎯 Целься и стреляй, шарик отскакивает от стен':'🎯 Нысанаға тигіз, доп қабырғадан секіреді')+'</div>';
+ $('choices').innerHTML='<canvas id="arcade" class="arcade" width="330" height="440" aria-label="Игра с рикошетом"></canvas><div class="arcade-note">'+(language==='ru'?'🎯 Веди пальцем для прицела, отпусти для выстрела':'🎯 Саусағыңмен көзде, жібергенде атады')+'</div>';
  $('choices').style.display='block';
  const can=$('arcade');
- can.addEventListener('pointerdown',e=>{if(!arcade||arcade.won||arcade.shot)return;const r=can.getBoundingClientRect();const x=(e.clientX-r.left)*330/r.width,y=(e.clientY-r.top)*440/r.height;shootArcade(x,y)});
+ let dragging=false,dragId=null;
+ const point=e=>{const r=can.getBoundingClientRect();return {x:Math.max(8,Math.min(322,(e.clientX-r.left)*330/r.width)),y:Math.max(8,Math.min(432,(e.clientY-r.top)*440/r.height))}};
+ can.addEventListener('pointerdown',e=>{if(!arcade||arcade.won||arcade.shot)return;dragging=true;dragId=e.pointerId;can.setPointerCapture(e.pointerId);arcade.aim=point(e);drawArcade()});
+ can.addEventListener('pointermove',e=>{if(!dragging||e.pointerId!==dragId||!arcade||arcade.shot)return;arcade.aim=point(e);drawArcade()});
+ can.addEventListener('pointerup',e=>{if(!dragging||e.pointerId!==dragId)return;dragging=false;dragId=null;if(!arcade||arcade.won||arcade.shot)return;arcade.aim=point(e);shootArcade(arcade.aim.x,arcade.aim.y)});
+ can.addEventListener('pointercancel',()=>{dragging=false;dragId=null});
  drawArcade();
 }
 function shootArcade(x,y){
@@ -80,7 +85,15 @@ function drawArcade(){
  for(const g of a.guys)if(g.alive){ctx.font='36px system-ui';ctx.fillText('🥷',g.x,g.y)}
  ctx.font='46px system-ui';ctx.fillText('🧑‍🚀',47,371);
  if(a.shot){ctx.beginPath();ctx.arc(a.shot.x,a.shot.y,7,0,Math.PI*2);ctx.fillStyle='#ff9a17';ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='#fff';ctx.stroke()}
- else if(!a.won){ctx.strokeStyle='#7554c7';ctx.setLineDash([5,8]);ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(49,366);ctx.lineTo(a.aim.x,a.aim.y);ctx.stroke();ctx.setLineDash([])}
+ else if(!a.won){const vx=a.aim.x-48,vy=a.aim.y-372,mag=Math.hypot(vx,vy)||1;let px=48,py=372,dx=vx/mag*4,dy=vy/mag*4;
+ ctx.strokeStyle='#7554c7';ctx.setLineDash([5,7]);ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(px,py);
+ for(let j=0;j<115;j++){const ox=px,oy=py;px+=dx;py+=dy;
+ if(px<9){px=9;dx=Math.abs(dx)}if(px>321){px=321;dx=-Math.abs(dx)}
+ if(py<9){py=9;dy=Math.abs(dy)}if(py>427){py=427;dy=-Math.abs(dy)}
+ for(const [wx,wy,ww,wh] of a.walls){if(px>wx-7&&px<wx+ww+7&&py>wy-7&&py<wy+wh+7){if(ox<wx-7||ox>wx+ww+7)dx*=-1;else dy*=-1;px=ox;py=oy}}
+ ctx.lineTo(px,py);
+ if(a.guys.some(g=>g.alive&&Math.hypot(px-g.x,py-g.y)<24)||a.barrels.some(b=>b.alive&&Math.hypot(px-b.x,py-b.y)<23))break;
+ }ctx.stroke();ctx.setLineDash([])}
  ctx.font='bold 15px system-ui';ctx.fillStyle='#4d3b8d';ctx.textAlign='right';ctx.fillText((language==='ru'?'Выстрелы: ':'Оқ: ')+a.tries,316,23);
 }
 
