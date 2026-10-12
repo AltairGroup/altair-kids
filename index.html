@@ -1,21 +1,96 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#8665ed"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Альтаир"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.svg"><title>Альтаир — учимся играя</title>
 <style>
-:root{font-family:system-ui,-apple-system,"Arial Rounded MT Bold",sans-serif;color:#29304b;background:#fcf7ff}*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(circle at 10% 10%,#ffe9aa 0,transparent 35%),radial-gradient(circle at 95% 5%,#c9f1ff 0,transparent 36%),#fcf7ff}button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}button:focus-visible{outline:4px solid #252166}main{max-width:720px;margin:auto;padding:calc(env(safe-area-inset-top) + 16px) 18px calc(env(safe-area-inset-bottom) + 25px)}.top{display:flex;align-items:center;justify-content:space-between;gap:10px}.small{font-size:14px;color:#636b89}.pill{border:0;border-radius:999px;padding:12px 18px;background:white;box-shadow:0 5px 14px #6555a126;font-weight:750}.hero{text-align:center;margin:26px 0 25px}.mascot{font-size:80px;filter:drop-shadow(0 8px 5px #53468b22)}h1{font-size:clamp(30px,8vw,48px);line-height:1.06;margin:4px 0 12px;color:#4931a3}h2{font-size:clamp(26px,6vw,36px);margin:12px 0 8px;text-align:center}.sub{font-size:18px;color:#666480;text-align:center;margin:0 0 20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.tile{min-height:162px;border:0;border-radius:27px;padding:14px 8px;color:#302b53;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:22px;font-weight:850;box-shadow:0 7px 0 #49366324,0 12px 20px #46366014;transition:transform .12s}.tile:active,.choice:active{transform:scale(.96)}.tile .emoji{font-size:60px}.pink{background:#ffd2e1}.yellow{background:#fff0a7}.blue{background:#c9ebff}.green{background:#caf4d4}.back{background:white;border:0;border-radius:15px;padding:11px 14px;font-size:21px;font-weight:750;box-shadow:0 5px 15px #473a7f1a}.head{display:flex;align-items:center;justify-content:space-between;min-height:62px}.stars{font-size:23px;color:#b57c05;font-weight:900}.panel{background:#fff;border-radius:30px;padding:18px;box-shadow:0 10px 30px #55448b13;min-height:300px}.prompt{text-align:center;font-size:23px;font-weight:850;margin:10px 0 18px}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.choice{border:4px solid transparent;border-radius:25px;min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#f2ebff;font-size:19px;font-weight:850;color:#332e55;box-shadow:0 5px 0 #4d39751a}.choice span.figure{font-size:58px;line-height:1.25}.choice.color{min-height:118px}.choice .shape{height:65px;width:65px;display:block}.message{min-height:55px;text-align:center;font-size:22px;font-weight:850;color:#6b42c5;margin:17px 0 0}.controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:16px}.primary{background:#7854ed;color:white;border:0;border-radius:20px;padding:15px 23px;font-size:19px;font-weight:800;box-shadow:0 6px 0 #4c2caa}.muted{background:white;border:2px solid #e2d9fe;border-radius:20px;padding:13px 20px;font-size:18px;font-weight:750}.pair-card{min-height:102px;background:#e7ddff;font-size:44px}.pair-card.open{background:#fff1bd;border-color:#c6a9ff}.pair-card.done{background:#d6f4d6;border-color:#9fdbaf}.arcade{display:block;width:100%;max-width:430px;margin:auto;aspect-ratio:3/4;background:#dbf1ff;border-radius:18px;touch-action:none}.arcade-note{text-align:center;font-size:16px;font-weight:700;padding-top:10px}.footer{text-align:center;font-size:13px;color:#817b9b;margin-top:24px}.hidden{display:none!important}@media(max-width:370px){.tile{min-height:138px}.tile .emoji{font-size:49px}.choice{min-height:100px}.pair-card{min-height:87px}}
+:root{font-family:system-ui,-apple-system,"Arial Rounded MT Bold",sans-serif;color:#29304b;background:#fcf7ff}*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(circle at 10% 10%,#ffe9aa 0,transparent 35%),radial-gradient(circle at 95% 5%,#c9f1ff 0,transparent 36%),#fcf7ff}button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}button:focus-visible{outline:4px solid #252166}main{max-width:720px;margin:auto;padding:calc(env(safe-area-inset-top) + 16px) 18px calc(env(safe-area-inset-bottom) + 25px)}.top{display:flex;align-items:center;justify-content:space-between;gap:10px}.small{font-size:14px;color:#636b89}.pill{border:0;border-radius:999px;padding:12px 18px;background:white;box-shadow:0 5px 14px #6555a126;font-weight:750}.hero{text-align:center;margin:26px 0 25px}.mascot{font-size:80px;filter:drop-shadow(0 8px 5px #53468b22)}h1{font-size:clamp(30px,8vw,48px);line-height:1.06;margin:4px 0 12px;color:#4931a3}h2{font-size:clamp(26px,6vw,36px);margin:12px 0 8px;text-align:center}.sub{font-size:18px;color:#666480;text-align:center;margin:0 0 20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.tile{min-height:162px;border:0;border-radius:27px;padding:14px 8px;color:#302b53;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:22px;font-weight:850;box-shadow:0 7px 0 #49366324,0 12px 20px #46366014;transition:transform .12s}.tile:active,.choice:active{transform:scale(.96)}.tile .emoji{font-size:60px}.pink{background:#ffd2e1}.yellow{background:#fff0a7}.blue{background:#c9ebff}.green{background:#caf4d4}.back{background:white;border:0;border-radius:15px;padding:11px 14px;font-size:21px;font-weight:750;box-shadow:0 5px 15px #473a7f1a}.head{display:flex;align-items:center;justify-content:space-between;min-height:62px}.stars{font-size:23px;color:#b57c05;font-weight:900}.panel{background:#fff;border-radius:30px;padding:18px;box-shadow:0 10px 30px #55448b13;min-height:300px}.prompt{text-align:center;font-size:23px;font-weight:850;margin:10px 0 18px}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.choice{border:4px solid transparent;border-radius:25px;min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#f2ebff;font-size:19px;font-weight:850;color:#332e55;box-shadow:0 5px 0 #4d39751a}.choice span.figure{font-size:clamp(36px,11vw,58px);line-height:1.2}.choice-name{font-size:clamp(12px,3.6vw,16px);line-height:1.18;text-align:center;overflow-wrap:anywhere;padding:0 3px}.choice.color{border:4px solid #d0c8dc}.choice.color{min-height:118px}.choice .shape{height:65px;width:65px;display:block}.message{min-height:55px;text-align:center;font-size:22px;font-weight:850;color:#6b42c5;margin:17px 0 0}.controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:16px}.primary{background:#7854ed;color:white;border:0;border-radius:20px;padding:15px 23px;font-size:19px;font-weight:800;box-shadow:0 6px 0 #4c2caa}.muted{background:white;border:2px solid #e2d9fe;border-radius:20px;padding:13px 20px;font-size:18px;font-weight:750}.pair-card{min-height:102px;background:#e7ddff;font-size:44px}.pair-card.open{background:#fff1bd;border-color:#c6a9ff}.pair-card.done{background:#d6f4d6;border-color:#9fdbaf}.arcade{display:block;width:100%;max-width:430px;margin:auto;aspect-ratio:3/4;background:#dbf1ff;border-radius:18px;touch-action:none}.arcade-note{text-align:center;font-size:16px;font-weight:700;padding-top:10px}.footer{text-align:center;font-size:13px;color:#817b9b;margin-top:24px}.hidden{display:none!important}@media(max-width:370px){.tile{min-height:138px}.tile .emoji{font-size:49px}.choice{min-height:100px}.pair-card{min-height:87px}}
 </style></head><body><main><header class="top"><span class="small">⭐ Игра для Альтаира</span><button id="lang" class="pill" aria-label="Изменить язык">🇰🇿 Қазақша</button></header><section id="home"><div class="hero"><div class="mascot">🚀</div><h1 id="title">Привет, Альтаир!</h1><div class="sub" id="welcome">Давай играть и учиться! 🌈</div></div><div class="grid" id="menu"></div><div class="footer" id="foot">Без рекламы • Без покупок • Для малышей 💜</div></section><section id="game" class="hidden"><div class="head"><button class="back" id="back">← 🏠</button><span class="stars" id="score">⭐ 0</span></div><h2 id="gameTitle"></h2><div class="sub" id="gameHint"></div><div class="panel"><div class="prompt" id="prompt"></div><div class="choices" id="choices"></div><div id="msg" class="message" role="status" aria-live="polite"></div></div><div class="controls" id="controls"><button class="muted" id="repeat">🔊 Повторить</button><button class="primary" id="next">➡️ Дальше</button></div></section></main>
 <script>
 (()=>{'use strict';
-const text={ru:{title:'Привет, Альтаир!',welcome:'Давай играть и учиться! 🌈',foot:'Без рекламы • Без покупок • Для малышей 💜',menus:['Цвета','Животные','Фигуры','Найди пару','Меткий Альтаир'],hints:['Найди правильный цвет','Кто это?','Найди правильную фигуру','Открывай одинаковые карточки','Коснись экрана, чтобы направить шарик в бандитов'],repeat:'🔊 Повторить',next:'➡️ Дальше',good:['Правильно!','Правильно!','Правильно!'],again:'Попробуй ещё! 💛',pairPrompt:'Найди две одинаковые картинки',pairWin:'Все пары найдены! Ура! 🎉',choose:'Найди:',tap:'Нажми на животное',namesColors:['Красный','Синий','Жёлтый','Зелёный','Оранжевый','Фиолетовый'],namesAnimals:['Кошка','Собака','Корова','Лошадь','Овечка','Утка'],namesShapes:['Круг','Квадрат','Треугольник','Звезда','Сердце','Ромб']},kk:{title:'Сәлем, Альтаир!',welcome:'Ойнап, бірге үйренейік! 🌈',foot:'Жарнамасыз • Сатып алусыз • Балаларға 💜',menus:['Түстер','Жануарлар','Пішіндер','Жұбын тап','Мерген Альтаир'],hints:['Дұрыс түсті тап','Бұл не?','Дұрыс пішінді тап','Бірдей екі суретті аш','Допты қарақшыларға бағыттау үшін экранды түрт'],repeat:'🔊 Қайталау',next:'➡️ Келесі',good:['Дұрыс!','Дұрыс!','Дұрыс!'],again:'Қайта көр! 💛',pairPrompt:'Екі бірдей суретті тап',pairWin:'Барлық жұп табылды! 🎉',choose:'Тап:',tap:'Жануарды бас',namesColors:['Қызыл','Көк','Сары','Жасыл','Қызғылт сары','Күлгін'],namesAnimals:['Мысық','Ит','Сиыр','Жылқы','Қой','Үйрек'],namesShapes:['Дөңгелек','Шаршы','Үшбұрыш','Жұлдыз','Жүрек','Ромб']}};
-const colors=['#f04f63','#4e9af4','#ffe05c','#57ca8a','#ff9c45','#a26ae9'],animals=['🐱','🐶','🐮','🐴','🐑','🦆'],shapes=['●','■','▲','★','♥','◆'];const icons=['🎨','🐮','🔺','🧩','🎯'];const classes=['pink','yellow','blue','green','yellow'];let language='ru',mode=-1,score=0,round=0,target=0,selection=[],pair=[],flipped=[],busy=false,answered=false,voice='',advanceTimer=null;const $=id=>document.getElementById(id),t=()=>text[language];
+const catalog={colors:[["Красный","Қызыл","#F44336"],["Синий","Көк","#1976D2"],["Жёлтый","Сары","#FFDC3D"],["Зелёный","Жасыл","#43A047"],["Оранжевый","Қызғылт сары","#FB8C00"],["Фиолетовый","Күлгін","#8E24AA"],["Розовый","Қызғылт","#F48FB1"],["Голубой","Көгілдір","#4FC3F7"],["Белый","Ақ","#FFFFFF"],["Чёрный","Қара","#262626"],["Серый","Сұр","#9E9E9E"],["Коричневый","Қоңыр","#795548"],["Бежевый","Беж","#D9B99B"],["Бирюзовый","Көгілдір жасыл","#20B2AA"],["Лаймовый","Лайм түсті","#A4C639"],["Бордовый","Қошқыл қызыл","#800020"],["Малиновый","Таңқурай түсті","#C2185B"],["Сиреневый","Ақшыл күлгін","#C8A2C8"],["Лавандовый","Лаванда түсті","#B39DDB"],["Мятный","Жалбыз түсті","#98FF98"],["Оливковый","Зәйтүн түсті","#808000"],["Золотой","Алтын түсті","#FFD700"],["Серебряный","Күміс түсті","#C0C0C0"],["Кремовый","Кілегей түсті","#FFFDD0"],["Персиковый","Шабдалы түсті","#FFCBA4"],["Коралловый","Маржан түсті","#FF7F50"],["Песочный","Құм түсті","#C2B280"],["Салатовый","Салат түсті","#B7E778"],["Изумрудный","Зүбәржат түсті","#009B77"],["Индиго","Индиго","#4B0082"],["Тёмно-синий","Қою көк","#0D1B4C"],["Тёмно-зелёный","Қою жасыл","#145A32"],["Тёмно-красный","Қою қызыл","#8B0000"],["Тёмно-серый","Қою сұр","#494949"],["Светло-серый","Ашық сұр","#D3D3D3"],["Светло-голубой","Ашық көгілдір","#ADD8E6"],["Светло-зелёный","Ашық жасыл","#B8E6B8"],["Светло-розовый","Ашық қызғылт","#FFD1DC"],["Небесный","Аспан түсті","#87CEEB"],["Морской волны","Теңіз толқыны","#2E8B8B"],["Баклажановый","Баялды түсті","#614051"],["Горчичный","Қыша түсті","#C9A227"],["Карамельный","Карамель түсті","#C68E4D"],["Терракотовый","Кірпіш түсті","#E2725B"],["Фуксия","Фуксия","#FF00FF"],["Аквамарин","Аквамарин","#7FFFD4"],["Лимонный","Лимон түсті","#FFF44F"],["Медный","Мыс түсті","#B87333"],["Шоколадный","Шоколад түсті","#7B3F00"],["Пудровый","Ұнтақ қызғылт","#E6B8B8"]],animals:[["Кошка","Мысық","🐱"],["Собака","Ит","🐶"],["Корова","Сиыр","🐮"],["Лошадь","Жылқы","🐴"],["Овечка","Қой","🐑"],["Утка","Үйрек","🦆"],["Курица","Тауық","🐔"],["Петух","Әтеш","🐓"],["Свинья","Шошқа","🐷"],["Коза","Ешкі","🐐"],["Кролик","Қоян","🐰"],["Мышка","Тышқан","🐭"],["Хомяк","Атжалман","🐹"],["Лиса","Түлкі","🦊"],["Волк","Қасқыр","🐺"],["Медведь","Аю","🐻"],["Панда","Панда","🐼"],["Лев","Арыстан","🦁"],["Тигр","Жолбарыс","🐯"],["Леопард","Қабылан","🐆"],["Слон","Піл","🐘"],["Жираф","Керік","🦒"],["Зебра","Зебра","🦓"],["Бегемот","Бегемот","🦛"],["Носорог","Мүйізтұмсық","🦏"],["Крокодил","Қолтырауын","🐊"],["Обезьяна","Маймыл","🐵"],["Горилла","Горилла","🦍"],["Кенгуру","Кенгуру","🦘"],["Коала","Коала","🐨"],["Ёжик","Кірпі","🦔"],["Белка","Тиін","🐿️"],["Летучая мышь","Жарқанат","🦇"],["Сова","Үкі","🦉"],["Попугай","Тотықұс","🦜"],["Пингвин","Пингвин","🐧"],["Орёл","Бүркіт","🦅"],["Фламинго","Қоқиқаз","🦩"],["Павлин","Тауыс","🦚"],["Черепаха","Тасбақа","🐢"],["Лягушка","Бақа","🐸"],["Змея","Жылан","🐍"],["Рыбка","Балық","🐟"],["Дельфин","Дельфин","🐬"],["Кит","Кит","🐳"],["Осьминог","Сегізаяқ","🐙"],["Пчела","Ара","🐝"],["Бабочка","Көбелек","🦋"],["Улитка","Ұлу","🐌"],["Верблюд","Түйе","🐪"]],shapes:[["Круг","Дөңгелек","●"],["Квадрат","Шаршы","■"],["Треугольник","Үшбұрыш","▲"],["Звезда","Жұлдыз","★"],["Сердце","Жүрек","♥"],["Ромб","Ромб","◆"],["Прямоугольник","Тіктөртбұрыш","▰"],["Овал","Сопақша","⬭"],["Пятиугольник","Бесбұрыш","⬟"],["Шестиугольник","Алтыбұрыш","⬢"],["Восьмиугольник","Сегізбұрыш","🛑"],["Полукруг","Жарты шеңбер","◐"],["Трапеция","Трапеция","⏢"],["Параллелограмм","Параллелограмм","▱"],["Крест","Айқыш","✚"],["Плюс","Қосу белгісі","＋"],["Кольцо","Сақина","◯"],["Полумесяц","Жарты ай","☾"],["Капля","Тамшы","💧"],["Молния","Найзағай","⚡"],["Стрелка вверх","Жоғары көрсеткі","⬆"],["Стрелка вниз","Төмен көрсеткі","⬇"],["Стрелка вправо","Оңға көрсеткі","➡"],["Стрелка влево","Солға көрсеткі","⬅"],["Двойная стрелка","Қос көрсеткі","↔"],["Цветок","Гүл","✿"],["Солнце","Күн","☀"],["Облако","Бұлт","☁"],["Снежинка","Қар ұшқыны","❄"],["Спираль","Шиыршық","🌀"],["Волна","Толқын","∿"],["Галочка","Құсбелгі","✔"],["Зигзаг","Ирек сызық","〽"],["Щит","Қалқан","🛡"],["Домик","Үйшік","⌂"],["Корона","Тәж","♛"],["Нота","Нота","♫"],["Шар","Шар","🔵"],["Куб","Текше","🧊"],["Цилиндр","Цилиндр","🥫"],["Конус","Конус","🍦"],["Пирамида","Пирамида","🔺"],["Призма","Призма","⬡"],["Сфера","Сфера","⚪"],["Шестиконечная звезда","Алтыбұрышты жұлдыз","✡"],["Восьмиконечная звезда","Сегізұшты жұлдыз","✴"],["Трилистник","Үшжапырақ","♣"],["Капсула","Капсула","💊"],["Облачко речи","Сөйлеу бұлты","💬"],["Листочек","Жапырақ","🍃"]],produce:[["Яблоко","Алма","🍎"],["Зелёное яблоко","Жасыл алма","🍏"],["Груша","Алмұрт","🍐"],["Банан","Банан","🍌"],["Апельсин","Апельсин","🍊"],["Лимон","Лимон","🍋"],["Лайм","Лайм","🍋‍🟩"],["Вишня","Шие","🍒"],["Персик","Шабдалы","🍑"],["Манго","Манго","🥭"],["Ананас","Ананас","🍍"],["Кокос","Кокос","🥥"],["Киви","Киви","🥝"],["Клубника","Құлпынай","🍓"],["Черника","Қаражидек","🫐"],["Виноград","Жүзім","🍇"],["Арбуз","Қарбыз","🍉"],["Дыня","Қауын","🍈"],["Авокадо","Авокадо","🥑"],["Помидор","Қызанақ","🍅"],["Огурец","Қияр","🥒"],["Морковь","Сәбіз","🥕"],["Картофель","Картоп","🥔"],["Брокколи","Брокколи","🥦"],["Капуста","Қырыққабат","🥬"],["Лук","Пияз","🧅"],["Чеснок","Сарымсақ","🧄"],["Острый перец","Ащы бұрыш","🌶️"],["Сладкий перец","Тәтті бұрыш","🫑"],["Баклажан","Баялды","🍆"],["Кукуруза","Жүгері","🌽"],["Горох","Бұршақ","🫛"],["Фасоль","Үрмебұршақ","🫘"],["Грибы","Саңырауқұлақ","🍄"],["Оливки","Зәйтүн","🫒"],["Батат","Тәтті картоп","🍠"],["Тыква","Асқабақ","🎃"],["Малина","Таңқурай","🍓"],["Ежевика","Қожақат","🫐"],["Слива","Алхоры","🍑"],["Гранат","Анар","🔴"],["Инжир","Інжір","🟣"],["Финики","Құрма","🟤"],["Хурма","Құрма жемісі","🟠"],["Мандарин","Мандарин","🍊"],["Грейпфрут","Грейпфрут","🍊"],["Свёкла","Қызылша","🔴"],["Редис","Шалғам","🔴"],["Кабачок","Кәді","🥒"],["Сельдерей","Балдыркөк","🥬"]]};
+const text={ru:{title:'Привет, Альтаир!',welcome:'Давай играть и учиться! 🌈',foot:'Без рекламы • Без покупок • Для малышей 💜',menus:['Цвета','Животные','Фигуры и формы','Найди пару','Меткий Альтаир','Овощи и фрукты'],hints:['Угадай цвет','Угадай животное','Угадай фигуру','Открывай одинаковые карточки','Направляй шарик в цели','Угадай овощ или фрукт'],repeat:'🔊 Повторить',next:'➡️ Дальше',good:['Правильно!'],again:'Попробуй ещё!',pairPrompt:'Найди две одинаковые картинки',pairWin:'Все пары найдены! Ура!',choose:'Найди:',tap:'Нажми на животное'},kk:{title:'Сәлем, Альтаир!',welcome:'Ойнап, бірге үйренейік! 🌈',foot:'Жарнамасыз • Сатып алусыз • Балаларға 💜',menus:['Түстер','Жануарлар','Пішіндер мен белгілер','Жұбын тап','Мерген Альтаир','Жемістер мен көкөністер'],hints:['Түсті тап','Жануарды тап','Пішінді тап','Бірдей екі суретті аш','Допты нысанаға бағытта','Жеміс немесе көкөністі тап'],repeat:'🔊 Қайталау',next:'➡️ Келесі',good:['Дұрыс!'],again:'Қайта көр!',pairPrompt:'Екі бірдей суретті тап',pairWin:'Барлық жұп табылды!',choose:'Тап:',tap:'Жануарды бас'}};
+for(const [key,items] of Object.entries(catalog)){text.ru['names'+key]=items.map(v=>v[0]);text.kk['names'+key]=items.map(v=>v[1])}
+const colors=catalog.colors.map(v=>v[2]),animals=catalog.animals.map(v=>v[2]),shapes=catalog.shapes.map(v=>v[2]),produce=catalog.produce.map(v=>v[2]);
+const icons=['🎨','🐮','🔺','🧩','🎯','🍎'],classes=['pink','yellow','blue','green','yellow','pink'];let language='ru',mode=-1,score=0,round=0,target=0,selection=[],pair=[],flipped=[],busy=false,answered=false,voice='',advanceTimer=null,decks={};const $=id=>document.getElementById(id),t=()=>text[language];
 function say(v){const spoken=String(v||'').replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu,'').replace(/\s+/g,' ').trim();voice=spoken;if(!spoken||!('speechSynthesis'in window))return;try{speechSynthesis.cancel();let utter=new SpeechSynthesisUtterance(spoken);utter.lang=language==='kk'?'kk-KZ':'ru-RU';utter.rate=.82;utter.pitch=1.12;speechSynthesis.speak(utter)}catch(e){}}
-function shuffle(a){return [...a].sort(()=>Math.random()-.5)}function rand(n){return Math.floor(Math.random()*n)}function setup(){['title','welcome','foot'].forEach(k=>$(k).textContent=t()[k]);$('lang').textContent=language==='ru'?'🇰🇿 Қазақша':'🇷🇺 Русский';$('menu').innerHTML='';t().menus.forEach((name,i)=>{let b=document.createElement('button');b.className='tile '+classes[i];b.innerHTML=`<span class="emoji">${icons[i]}</span><span>${name}</span>`;b.onclick=()=>start(i);$('menu').appendChild(b)});$('repeat').textContent=t().repeat;$('next').textContent=t().next;if(mode>=0){$('gameTitle').textContent=t().menus[mode];$('gameHint').textContent=t().hints[mode];render()}}
-function autoAdvance(delay=1200){clearTimeout(advanceTimer);advanceTimer=setTimeout(()=>{advanceTimer=null;if(mode>=0)nextRound()},delay)}
-function start(i){stopArcade();clearTimeout(advanceTimer);mode=i;score=0;round=0;$('home').classList.add('hidden');$('game').classList.remove('hidden');$('choices').style.display='grid';$('controls').classList.remove('hidden');$('gameTitle').textContent=t().menus[i];$('gameHint').textContent=t().hints[i];nextRound()}
-function home(){stopArcade();clearTimeout(advanceTimer);mode=-1;try{speechSynthesis.cancel()}catch(e){}$('game').classList.add('hidden');$('home').classList.remove('hidden')}
-function nextRound(){clearTimeout(advanceTimer);round++;if(mode===4){startArcade();return;}answered=false;busy=false;$('msg').textContent='';$('score').textContent='⭐ '+score;$('next').classList.add('hidden');if(mode===3){newPairs();return;}const previousTarget=target;target=rand(6);if(round>1&&target===previousTarget)target=(target+1+rand(5))%6;selection=shuffle([target,...shuffle([0,1,2,3,4,5].filter(i=>i!==target)).slice(0,3)]);render()}
-function render(){if(mode<0)return;if(mode===4){drawArcade();return;}$('prompt').textContent=mode===3?t().pairPrompt:t().choose+' '+(mode===0?t().namesColors[target]:mode===1?t().namesAnimals[target]:t().namesShapes[target]);$('choices').innerHTML='';if(mode===3){pair.forEach((item,i)=>{let b=document.createElement('button');b.className='choice pair-card'+(flipped.includes(i)?' open':'')+(pair[i].done?' done':'');b.textContent=(flipped.includes(i)||pair[i].done)?animals[item.id]:'❔';b.setAttribute('aria-label',b.textContent);b.onclick=()=>flip(i);$('choices').appendChild(b)});return;}selection.forEach(i=>{let b=document.createElement('button');b.className='choice'+(mode===0?' color':'');if(mode===0){b.style.background=colors[i];b.setAttribute('aria-label',t().namesColors[i])}if(mode===1){b.innerHTML='<span class="figure">'+animals[i]+'</span><span>'+t().namesAnimals[i]+'</span>'}if(mode===2){b.innerHTML='<span class="figure" style="color:'+colors[i]+'">'+shapes[i]+'</span><span>'+t().namesShapes[i]+'</span>'}b.onclick=()=>pick(i);$('choices').appendChild(b)});if(mode===0||mode===1||mode===2)say((mode===0?t().namesColors:mode===1?t().namesAnimals:t().namesShapes)[target]);}
-function pick(i){if(answered)return;if(i===target){answered=true;score++;$('score').textContent='⭐ '+score;$('msg').textContent=t().good[0];say(t().good[0]);autoAdvance(1700)}else{$('msg').textContent=t().again;say(t().again)}}
 
+function shuffle(a){const v=a.slice();for(let i=v.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[v[i],v[j]]=[v[j],v[i]]}return v}
+function rand(n){return Math.floor(Math.random()*n)}
+function names(){return t()['names'+(mode===0?'colors':mode===1?'animals':mode===2?'shapes':'produce')]}
+function pool(){return mode===0?colors:mode===1?animals:mode===2?shapes:produce}
+function colorDistance(a,b){const h=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16));const u=h(a),v=h(b);return Math.sqrt(u.reduce((z,n,i)=>z+(n-v[i])**2,0))}
+function choicesFor(){
+ const candidates=shuffle(Array.from({length:pool().length},(_,i)=>i).filter(i=>i!==target));
+ const result=[target];
+ if(mode===0){
+  while(result.length<4&&candidates.length){
+   const scored=candidates.map((i,k)=>({i,k,d:Math.min(...result.map(r=>colorDistance(colors[i],colors[r])))}));
+   scored.sort((a,b)=>b.d-a.d);
+   const pick=scored[rand(Math.min(7,scored.length))];result.push(pick.i);candidates.splice(pick.k,1);
+  }
+ }else{
+  for(const i of candidates){if(result.every(r=>pool()[r]!==pool()[i]))result.push(i);if(result.length===4)break}
+ }
+ return shuffle(result)
+}
+function setup(){
+ ['title','welcome','foot'].forEach(k=>$(k).textContent=t()[k]);
+ $('lang').textContent=language==='ru'?'🇰🇿 Қазақша':'🇷🇺 Русский';
+ $('menu').innerHTML='';
+ t().menus.forEach((name,i)=>{const b=document.createElement('button');b.className='tile '+classes[i];b.innerHTML='<span class="emoji">'+icons[i]+'</span><span></span>';b.lastChild.textContent=name;b.onclick=()=>start(i);$('menu').appendChild(b)});
+ $('repeat').textContent=t().repeat;$('next').textContent=t().next;
+ if(mode>=0){$('gameTitle').textContent=t().menus[mode];$('gameHint').textContent=t().hints[mode];render()}
+}
+function autoAdvance(delay=1600){clearTimeout(advanceTimer);const here=mode;advanceTimer=setTimeout(()=>{advanceTimer=null;if(mode===here)nextRound()},delay)}
+function start(i){
+ stopArcade();clearTimeout(advanceTimer);mode=i;score=0;round=0;decks={};
+ $('home').classList.add('hidden');$('game').classList.remove('hidden');
+ $('choices').style.display='grid';$('controls').classList.remove('hidden');
+ $('gameTitle').textContent=t().menus[i];$('gameHint').textContent=t().hints[i];nextRound()
+}
+function home(){stopArcade();clearTimeout(advanceTimer);mode=-1;
+ try{speechSynthesis.cancel()}catch(e){}
+ $('game').classList.add('hidden');$('home').classList.remove('hidden')
+}
+function nextRound(){
+ clearTimeout(advanceTimer);round++;
+ if(mode===4){startArcade();return}
+ answered=false;busy=false;$('msg').textContent='';$('score').textContent='⭐ '+score;$('next').classList.add('hidden');
+ if(mode===3){newPairs();return}
+ if(!decks[mode]||!decks[mode].length){decks[mode]=shuffle(Array.from({length:pool().length},(_,i)=>i))}
+ target=decks[mode].pop();selection=choicesFor();render()
+}
+function render(){
+ if(mode<0)return;
+ if(mode===4){drawArcade();return}
+ $('prompt').textContent=mode===3?t().pairPrompt:t().choose+' '+names()[target];
+ $('choices').innerHTML='';
+ if(mode===3){
+  for(let i=0;i<pair.length;i++){
+   let b=document.createElement('button');
+   b.className='choice pair-card'+(flipped.includes(i)?' open':'')+(pair[i].done?' done':'');
+   b.textContent=(flipped.includes(i)||pair[i].done)?pair[i].icon:'❔';
+   b.setAttribute('aria-label',b.textContent);b.onclick=()=>flip(i);$('choices').appendChild(b)
+  }
+  return
+ }
+ for(const i of selection){
+  const b=document.createElement('button');b.className='choice'+(mode===0?' color':'');
+  if(mode===0){b.style.background=colors[i];b.style.borderColor=colors[i].toUpperCase()==='#FFFFFF'?'#D4D4D4':'transparent';b.setAttribute('aria-label',t().namescolors[i])}
+  else{
+   const symbol=document.createElement('span');symbol.className='figure';symbol.textContent=pool()[i];
+   if(mode===2)symbol.style.color=['#F16678','#2E95D3','#B171DD','#29AA84'][i%4];
+   const caption=document.createElement('span');caption.className='choice-name';caption.textContent=names()[i];
+   b.appendChild(symbol);b.appendChild(caption)
+  }
+  b.onclick=()=>pick(i);$('choices').appendChild(b)
+ }
+ say(names()[target])
+}
+function pick(i){
+ if(answered)return;
+ if(i===target){answered=true;score++;$('score').textContent='⭐ '+score;
+  $('msg').textContent=t().good[0];say(t().good[0]);autoAdvance(1600)
+ }else{$('msg').textContent=t().again;say(t().again)}
+}
 let arcade=null,arcFrame=0,arcNext=0;
 const levels=[
  {guys:[[260,95]],walls:[],barrels:[]},
@@ -25,6 +100,13 @@ const levels=[
  {guys:[[90,100],[265,110],[265,320]],walls:[[120,185,130,16],[65,280,145,14]],barrels:[[255,268]]},
  {guys:[[85,90],[250,100],[255,280]],walls:[[90,160,135,15],[142,245,120,15]],barrels:[[230,225]]}
 ];
+for(let level=7;level<=50;level++){
+ const n=level-7,rows=(n%3)+1;
+ const guys=Array.from({length:rows},(_,i)=>[205+((n*29+i*41)%85),75+i*105+((n*7)%15)]);
+ const walls=n%4===0?[]:[[90+(n*17)%80,180+(n*13)%50,85+(n%3)*22,14]];
+ const barrels=n%3===0?[[250,250]]:[];
+ levels.push({guys,walls,barrels})
+}
 function stopArcade(){if(arcFrame)cancelAnimationFrame(arcFrame);arcFrame=0;clearTimeout(arcNext);arcNext=0;arcade=null}
 function startArcade(){
  stopArcade();
@@ -116,8 +198,24 @@ function drawArcade(){
  ctx.font='bold 15px system-ui';ctx.fillStyle='#4d3b8d';ctx.textAlign='right';ctx.fillText((language==='ru'?'Выстрелы: ':'Оқ: ')+a.tries,316,23);
 }
 
-function newPairs(){const ids=shuffle([0,1,2,3,4,5]).slice(0,3);pair=shuffle([...ids,...ids]).map(id=>({id,done:false}));flipped=[];render()}
-function flip(i){if(busy||pair[i].done||flipped.includes(i))return;flipped.push(i);render();if(flipped.length===2){busy=true;const [a,b]=flipped;if(pair[a].id===pair[b].id){pair[a].done=pair[b].done=true;score++;$('score').textContent='⭐ '+score;setTimeout(()=>{flipped=[];busy=false;render();if(pair.every(p=>p.done)){$('msg').textContent=t().pairWin;say(t().pairWin);autoAdvance(1150)}},650)}else{setTimeout(()=>{flipped=[];busy=false;render()},950)}}}
-$('lang').onclick=()=>{language=language==='ru'?'kk':'ru';setup()};$('back').onclick=home;$('next').onclick=nextRound;$('repeat').onclick=()=>{if(mode===4)say(t().hints[4]);else if(mode===3)say(t().pairPrompt);else if(mode===1)say(t().tap);else say((mode===0?t().namesColors:t().namesShapes)[target])};setup();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+function newPairs(){
+ const all=shuffle(catalog.animals.concat(catalog.produce));const picked=[],seen=new Set();
+ for(const item of all){if(!seen.has(item[2])){picked.push(item);seen.add(item[2])}if(picked.length===3)break}
+ const ids=[0,0,1,1,2,2];pair=shuffle(ids).map(i=>({icon:picked[i][2],ru:picked[i][0],kk:picked[i][1],done:false}));flipped=[];render()
+}
+function flip(i){
+ if(mode!==3||busy||pair[i].done||flipped.includes(i))return;
+ flipped.push(i);render();
+ if(flipped.length===2){
+  busy=true;const [a,b]=flipped,here=round;
+  if(pair[a].icon===pair[b].icon){
+   pair[a].done=pair[b].done=true;score++;$('score').textContent='⭐ '+score;
+   setTimeout(()=>{if(mode!==3||round!==here)return;flipped=[];busy=false;render();
+    if(pair.every(p=>p.done)){$('msg').textContent=t().pairWin;say(t().pairWin);autoAdvance(1600)}
+   },650)
+  }else{setTimeout(()=>{if(mode!==3||round!==here)return;flipped=[];busy=false;render()},900)}
+ }
+}
+$('lang').onclick=()=>{language=language==='ru'?'kk':'ru';setup()};$('back').onclick=home;$('next').onclick=nextRound;$('repeat').onclick=()=>{if(mode===4)say(t().hints[4]);else if(mode===3)say(t().pairPrompt);else say(names()[target])};setup();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script></body></html>
