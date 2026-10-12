@@ -68,7 +68,7 @@ function tickArcade(){
    for(const b of a.barrels)if(b.alive&&Math.hypot(p.x-b.x,p.y-b.y)<23){b.alive=false;for(const g of a.guys)if(g.alive&&Math.hypot(b.x-g.x,b.y-g.y)<110)g.alive=false;p.vx*=-1;p.vy*=-1}
    for(const g of a.guys)if(g.alive&&Math.hypot(p.x-g.x,p.y-g.y)<24){g.alive=false;p.vx*=-1;p.vy*=-1}
    if(a.guys.every(g=>!g.alive)){a.won=true;a.shot=null;score+=3;$('score').textContent='⭐ '+score;$('msg').textContent=language==='ru'?'Отлично! Следующий уровень! 🎉':'Жарайсың! Келесі деңгей! 🎉';say(t().good[0]);arcNext=setTimeout(()=>{if(mode===4)nextRound()},1600);break}
-   if(p.t>420||p.bounces>16){a.shot=null;break}
+   if(p.t>2400||p.bounces>45){a.shot=null;break}
   }
  }
  drawArcade();if(arcade&&arcade.shot)arcFrame=requestAnimationFrame(tickArcade)
