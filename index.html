@@ -65,9 +65,28 @@ function tickArcade(){
       p.x=ox;p.y=oy;p.bounces++;
     }
    }
-   for(const b of a.barrels)if(b.alive&&Math.hypot(p.x-b.x,p.y-b.y)<23){b.alive=false;for(const g of a.guys)if(g.alive&&Math.hypot(b.x-g.x,b.y-g.y)<110)g.alive=false;p.vx*=-1;p.vy*=-1}
-   for(const g of a.guys)if(g.alive&&Math.hypot(p.x-g.x,p.y-g.y)<24){g.alive=false;p.vx*=-1;p.vy*=-1}
-   if(a.guys.every(g=>!g.alive)){a.won=true;a.shot=null;score+=3;$('score').textContent='⭐ '+score;$('msg').textContent=language==='ru'?'Отлично! Следующий уровень! 🎉':'Жарайсың! Келесі деңгей! 🎉';say(t().good[0]);arcNext=setTimeout(()=>{if(mode===4)nextRound()},1600);break}
+   let hitTarget=false;
+   for(const b of a.barrels){
+    if(b.alive&&Math.hypot(p.x-b.x,p.y-b.y)<23){
+     b.alive=false;hitTarget=true;
+     for(const g of a.guys)if(g.alive&&Math.hypot(b.x-g.x,b.y-g.y)<110)g.alive=false;
+     break;
+    }
+   }
+   if(!hitTarget)for(const g of a.guys){
+    if(g.alive&&Math.hypot(p.x-g.x,p.y-g.y)<24){g.alive=false;hitTarget=true;break}
+   }
+   if(hitTarget){
+    a.shot=null;
+    if(a.guys.every(g=>!g.alive)){
+     a.won=true;score+=3;$('score').textContent='⭐ '+score;
+     $('msg').textContent=language==='ru'?'Отлично! Следующий уровень! 🎉':'Жарайсың! Келесі деңгей! 🎉';
+     say(t().good[0]);arcNext=setTimeout(()=>{if(mode===4)nextRound()},1600);
+    }else{
+     $('msg').textContent=language==='ru'?'Попал! Стреляй ещё! 🎯':'Тиді! Тағы ат! 🎯';
+    }
+    break;
+   }
    if(p.t>2400||p.bounces>45){a.shot=null;break}
   }
  }
