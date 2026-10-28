@@ -35,7 +35,7 @@ function setup(){
  ['title','welcome','foot'].forEach(k=>$(k).textContent=t()[k]);
  $('lang').textContent=language==='ru'?'🇰🇿 Қазақша':'🇷🇺 Русский';
  $('menu').innerHTML='';
- t().menus.forEach((name,i)=>{const b=document.createElement('button');b.className='tile '+classes[i];b.innerHTML='<span class="emoji">'+icons[i]+'</span><span></span>';b.lastChild.textContent=name;b.onclick=()=>start(i);$('menu').appendChild(b)});
+ t().menus.forEach((name,i)=>{const b=document.createElement('button');b.className='tile '+classes[i];b.innerHTML='<span class="emoji">'+icons[i]+'</span><span></span>';b.lastChild.textContent=name;b.onclick=()=>start(i);$('menu').appendChild(b)});const speechBtn=document.createElement('button');speechBtn.className='tile blue';speechBtn.innerHTML='<span class="emoji">🎤</span><span></span>';speechBtn.lastChild.textContent=language==='kk'?'Сөйле, Альтаир!':'Говори, Альтаир!';speechBtn.onclick=()=>{window.location.href='./speech.html'};$('menu').appendChild(speechBtn);
  $('repeat').textContent=t().repeat;$('next').textContent=t().next;
  if(mode>=0){$('gameTitle').textContent=t().menus[mode];$('gameHint').textContent=t().hints[mode];render()}
 }
