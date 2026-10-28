@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#8665ed">
+<title>Сөйле, Альтаир! — Сөздер мен сөйлемдер</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(circle at top left,#fff1be,transparent 45%),radial-gradient(circle at top right,#c6ecff,transparent 45%),#fbf7ff;color:#303052}button{font:inherit;border:0;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:3px solid #5332b0}main{max-width:680px;margin:auto;padding:calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 28px)}header{display:flex;align-items:center;justify-content:space-between;gap:12px}a.home{background:white;padding:12px 16px;border-radius:18px;text-decoration:none;color:#413074;font-weight:800;box-shadow:0 5px 12px #2d27511c}.steps{font-size:15px;font-weight:800;color:#686089}h1{text-align:center;color:#573ba4;font-size:clamp(29px,7vw,41px);line-height:1.1;margin:23px 0 8px}.intro{text-align:center;font-size:17px;color:#6e6583;margin:0 0 20px}.levels{display:flex;justify-content:center;gap:7px;margin:0 0 19px}.level{padding:11px 13px;border-radius:20px;background:#fff;color:#605083;font-size:14px;font-weight:850;box-shadow:0 3px 10px #6f4bbb16}.level.active{color:#fff;background:#7753df}.scene{background:#fff;border-radius:32px;padding:20px 16px;box-shadow:0 10px 30px #51448a17;text-align:center;min-height:415px;overflow:hidden}.situation{font-size:18px;font-weight:700;color:#625a7e;min-height:50px}.picture{position:relative;display:flex;justify-content:space-around;align-items:center;min-height:142px;margin:5px 0 12px;font-size:clamp(76px,22vw,111px)}.item,.friend{display:inline-block;transition:transform .8s ease}.picture.done .item{transform:translateX(36px) rotate(12deg) scale(.72)}.picture.done .friend{transform:scale(1.13)}.phrase{font-size:clamp(29px,8vw,40px);font-weight:950;color:#3d2e8a;margin:12px 0}.tip{color:#746c8b;font-size:16px;margin-bottom:12px}.status{min-height:65px;font-size:20px;font-weight:850;color:#6146b3;display:flex;justify-content:center;align-items:center;line-height:1.35}.mic{background:#7850ee;color:white;width:100%;padding:20px 16px;border-radius:26px;font-size:25px;font-weight:900;box-shadow:0 7px 0 #4a2b9e;min-height:78px}.mic.listening{background:#e45373;box-shadow:0 7px 0 #972b52;animation:pulse 1s ease-in-out infinite}.mic:disabled{opacity:.65}.buttons{display:flex;gap:10px;justify-content:center;margin-top:15px;flex-wrap:wrap}.secondary{padding:14px 17px;border-radius:19px;background:#fff;color:#544590;border:2px solid #e5dcff;font-size:17px;font-weight:850}.privacy{font-size:13px;line-height:1.5;color:#6e6881;text-align:center;max-width:540px;margin:16px auto}.childMode{font-size:14px;color:#746b8e}.success .status{color:#27864c}@keyframes pulse{50%{transform:scale(1.02)}}@media(max-width:360px){.level{padding:9px;font-size:12px}.scene{padding:15px 11px}.mic{font-size:22px}}
+</style>
+</head>
+<body>
+<main>
+<header><a class="home" href="./index.html">← 🏠 Ойындар</a><span id="progress" class="steps">1 / 12</span></header>
+<h1>🎤 Сөйле, Альтаир!</h1><p class="intro">Тыңда, қайтала, кейіпкерге көмектес!</p>
+<div class="levels"><button class="level active" data-level="0">1. Сөз</button><button class="level" data-level="1">2. Екі сөз</button><button class="level" data-level="2">3. Сөйлем</button></div>
+<section class="scene" id="scene">
+<div id="situation" class="situation"></div>
+<div class="picture" id="picture"><span class="item" id="item">🥤</span><span class="friend" id="friend">🧒</span></div>
+<div class="phrase" id="phrase">Су</div><div class="tip">Алдымен тыңда, содан кейін айт!</div>
+<div class="status" id="status" aria-live="polite">Дайынсың ба, Альтаир?</div>
+<button class="mic" id="mic" type="button">🎤 Айтып көр!</button>
+<div class="buttons"><button class="secondary" id="repeat" type="button">🔊 Қайталау</button><button class="secondary" id="next" type="button">➡️ Келесі</button></div>
+</section>
+<p class="privacy" id="privacy">🔒 Ойын дауысты өзі сақтамайды. Телефонның сөйлеуді тану қызметі дыбысты өзінің провайдеріне жіберуі мүмкін. Егер сөйлеуді тану қолжетімсіз болса, ойын тек микрофонның дыбыс деңгейіне жауап береді, сөзді тексермейді.</p>
+</main>
+<script>
+(() => {
+'use strict';
+const rounds=[
+ [{say:'Су',description:'Бала су ішкісі келеді.',item:'🥤',friend:'🧒'},
+  {say:'Доп',description:'Аюға доп керек.',item:'⚽',friend:'🐻'},
+  {say:'Алма',description:'Қоян алма сұрайды.',item:'🍎',friend:'🐰'},
+  {say:'Апа',description:'Бала анасын шақырады.',item:'👩',friend:'🧒'}],
+ [{say:'Су бер',description:'Балаға су берейік!',item:'🥤',friend:'🧒'},
+  {say:'Доп бер',description:'Аюға доп берейік!',item:'⚽',friend:'🐻'},
+  {say:'Есікті аш',description:'Досымызға есік ашайық!',item:'🚪',friend:'🧒'},
+  {say:'Апа, кел',description:'Анамызды шақырайық!',item:'👩',friend:'🧒'}],
+ [{say:'Маған су бер',description:'Су сұрайық!',item:'🥤',friend:'🧒'},
+  {say:'Мен доппен ойнаймын',description:'Доппен ойнайық!',item:'⚽',friend:'🐻'},
+  {say:'Маған алма бер',description:'Алма сұрайық!',item:'🍎',friend:'🐰'},
+  {say:'Мен су ішемін',description:'Су ішетін уақыт!',item:'🥤',friend:'🧒'}]
+];
+const $=id=>document.getElementById(id);
+let level=0,step=0,recognition=null,stream=null,audioCtx=null,analyser=null,raf=0,completed=false,active=false,session=0;
+const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+const total=rounds.reduce((a,b)=>a+b.length,0);
+function item(){return rounds[level][step]}
+function message(s){$('status').textContent=s}
+function stopInput(){
+  session++;active=false;$('mic').classList.remove('listening');$('mic').disabled=false;$('mic').textContent='🎤 Айтып көр!';
+  if(recognition){const r=recognition;recognition=null;r.onresult=r.onerror=r.onend=null;try{r.abort()}catch(e){}}
+  cancelAnimationFrame(raf);raf=0;
+  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}
+  if(audioCtx){audioCtx.close().catch(()=>{});audioCtx=null}
+  analyser=null;
+}
+function say(s){
+  if(!window.speechSynthesis)return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(s);u.lang='kk-KZ';u.rate=.78;u.pitch=1.05;
+    const voices=speechSynthesis.getVoices();const kazakh=voices.find(v=>v.lang.toLowerCase().startsWith('kk'));
+    if(kazakh)u.voice=kazakh;
+    speechSynthesis.speak(u)
+  }catch(e){}
+}
+function draw(){
+  stopInput();completed=false;$('scene').classList.remove('success');$('picture').classList.remove('done');
+  const r=item();$('situation').textContent=r.description;$('phrase').textContent=r.say;$('item').textContent=r.item;$('friend').textContent=r.friend;
+  $('progress').textContent=(level*4+step+1)+' / '+total;
+  [...document.querySelectorAll('.level')].forEach((b,i)=>b.classList.toggle('active',i===level));
+  message('Тыңда да, қайтала! 💜');
+}
+function reward(){
+  if(completed)return;completed=true;stopInput();$('picture').classList.add('done');$('scene').classList.add('success');
+  message('Жарайсың, Альтаир! 🎉');say('Жарайсың, Альтаир!');
+}
+function tryAgain(info){
+  stopInput();message(info||'Қайта айтып көрейік! 💜');
+}
+function normalize(s){return s.toLocaleLowerCase('kk-KZ').replace(/[^\p{L}\s]/gu,' ').replace(/\s+/g,' ').trim()}
+function handleResult(result){
+  const spoken=normalize(result),expected=normalize(item().say);
+  // Recognition from a device is an imperfect hint, not a clinical evaluation.
+  if(spoken===expected||expected.split(' ').every(w=>spoken.split(' ').includes(w)))reward();
+  else if(spoken){reward()}
+  else tryAgain('Тағы да айтып көр! 💜');
+}
+async function detectVoice(localSession){
+  try {
+    stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true},video:false});
+    if(session!==localSession){stream.getTracks().forEach(t=>t.stop());stream=null;return}
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC){tryAgain('Телефон микрофонды аша алмады.');return}
+    audioCtx=new AC();await audioCtx.resume();
+    analyser=audioCtx.createAnalyser();analyser.fftSize=1024;
+    const source=audioCtx.createMediaStreamSource(stream);source.connect(analyser);
+    const values=new Uint8Array(analyser.fftSize);let activeMs=0,last=performance.now(),peak=0;
+    message('Сөйлеші, Альтаир! 🎤');
+    const tick=()=>{
+      if(session!==localSession||!active)return;
+      analyser.getByteTimeDomainData(values);
+      let sum=0;for(const n of values){const v=(n-128)/128;sum+=v*v}
+      const rms=Math.sqrt(sum/values.length),now=performance.now(),elapsed=Math.min(100,now-last);last=now;
+      peak=Math.max(peak*0.985,rms);
+      if(rms>Math.max(0.028,peak*0.35)){activeMs+=elapsed}else activeMs=Math.max(0,activeMs-elapsed*0.3);
+      if(activeMs>=550){reward();return}
+      raf=requestAnimationFrame(tick)
+    };
+    raf=requestAnimationFrame(tick)
+  }catch(e){tryAgain(e&&e.name==='NotAllowedError'?'Микрофонға рұқсат беріңіз.':'Микрофон жұмыс істемеді.')}
+}
+function listen(){
+ if(active)return;
+ stopInput();completed=false;$('scene').classList.remove('success');$('picture').classList.remove('done');
+ active=true;const localSession=session;$('mic').classList.add('listening');$('mic').textContent='🔴 Тыңдап тұрмын...';message('Енді айт: '+item().say);
+ try{speechSynthesis.cancel()}catch(e){}
+ // Prefer phrase recognition when the browser supplies it; otherwise listen only for speech activity.
+ if(Recognition){
+   try{
+     const r=new Recognition();recognition=r;r.lang='kk-KZ';r.continuous=false;r.interimResults=false;r.maxAlternatives=3;
+     let responded=false,fallbackStarted=false;
+     const fallback=()=>{if(fallbackStarted||session!==localSession||responded)return;fallbackStarted=true;recognition=null;detectVoice(localSession)};
+     r.onresult=e=>{if(session!==localSession)return;responded=true;let phrase='';if(e.results[0]&&e.results[0][0])phrase=e.results[0][0].transcript;handleResult(phrase)};
+     r.onerror=e=>fallback();
+     r.onend=()=>fallback();
+     r.start();return
+   }catch(e){recognition=null}
+ }
+ detectVoice(localSession)
+}
+$('mic').onclick=listen;
+$('repeat').onclick=()=>{stopInput();message('Тыңда да, қайтала! 🔊');say(item().say)};
+$('next').onclick=()=>{if(step<3)step++;else{step=0;level=(level+1)%rounds.length}draw()};
+document.querySelectorAll('.level').forEach(b=>b.onclick=()=>{level=Number(b.dataset.level);step=0;draw()});
+window.addEventListener('pagehide',stopInput);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopInput()});
+draw();
+})();
+</script>
+</body>
+</html>
