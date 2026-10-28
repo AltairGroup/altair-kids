@@ -22,7 +22,7 @@
 <button class="mic" id="mic" type="button">🎤 Айтып көр!</button>
 <div class="buttons"><button class="secondary" id="repeat" type="button">🔊 Қайталау</button><button class="secondary" id="next" type="button">➡️ Келесі</button></div>
 </section>
-<p class="privacy" id="privacy">🔒 Ойын дауысты өзі сақтамайды. Егер телефон сөйлеуді тануға қолдау көрсетпесе, ойын микрофоннан дыбыс шыққанын ғана анықтайды — нақты сөзді тексермейді.</p>
+<p class="privacy" id="privacy">🔒 Ойын дауысты өзі сақтамайды. Телефонның сөйлеуді тану қызметі дыбысты өзінің провайдеріне жіберуі мүмкін. Егер сөйлеуді тану қолжетімсіз болса, ойын тек микрофонның дыбыс деңгейіне жауап береді, сөзді тексермейді.</p>
 </main>
 <script>
 (() => {
@@ -118,10 +118,11 @@ function listen(){
  if(Recognition){
    try{
      const r=new Recognition();recognition=r;r.lang='kk-KZ';r.continuous=false;r.interimResults=false;r.maxAlternatives=3;
-     let responded=false;
+     let responded=false,fallbackStarted=false;
+     const fallback=()=>{if(fallbackStarted||session!==localSession||responded)return;fallbackStarted=true;recognition=null;detectVoice(localSession)};
      r.onresult=e=>{if(session!==localSession)return;responded=true;let phrase='';if(e.results[0]&&e.results[0][0])phrase=e.results[0][0].transcript;handleResult(phrase)};
-     r.onerror=e=>{if(session!==localSession||responded)return;recognition=null;detectVoice(localSession)};
-     r.onend=()=>{if(session!==localSession||responded)return;recognition=null;detectVoice(localSession)};
+     r.onerror=e=>fallback();
+     r.onend=()=>fallback();
      r.start();return
    }catch(e){recognition=null}
  }
