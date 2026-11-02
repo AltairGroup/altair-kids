@@ -198,7 +198,7 @@ function render(){
   b.append(art,check);b.addEventListener('click',()=>choose(i,b));$('answers').appendChild(b);
  }
  // First question is read after the child's initial category tap.
- voiceTimer=setTimeout(()=>voice(task.question),200);
+ voice(task.question);
 }
 function choose(i,b){
  if(locked)return;
