@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#7660db">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Екі сурет — Альтаирдың ойыны</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Arial Rounded MT Bold",sans-serif;color:#322953;background:#f8f7ff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100dvh;background:radial-gradient(circle at 0% 0%,#ffefb9 0,transparent 33%),radial-gradient(circle at 100% 10%,#cdefff 0,transparent 35%),#f8f7ff}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,a:focus-visible{outline:4px solid #5041b6;outline-offset:2px}
+main{max-width:740px;margin:auto;padding:calc(env(safe-area-inset-top) + 15px) 16px calc(env(safe-area-inset-bottom) + 28px)}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.home{display:inline-flex;align-items:center;gap:5px;text-decoration:none;color:#514083;font-weight:850;background:#fff;padding:12px 16px;border-radius:18px;box-shadow:0 5px 17px #48416c1c}
+.stars{font-size:19px;font-weight:900;color:#a26b0a;background:#fff8df;border-radius:24px;padding:11px 15px}
+h1{color:#5637a6;text-align:center;line-height:1.1;font-size:clamp(29px,7.5vw,43px);margin:20px 0 10px}
+.subtitle{text-align:center;font-size:18px;color:#6e668b;margin:0 0 20px}
+.stage{background:#fff;border-radius:34px;padding:20px 15px 22px;min-height:395px;box-shadow:0 12px 32px #5a458e17;position:relative;overflow:hidden}
+.category-grid{display:grid;grid-template-columns:1fr;gap:13px;margin:26px 0 8px}
+.cat{border:0;border-radius:24px;padding:18px;display:flex;align-items:center;gap:16px;text-align:left;font-weight:850;font-size:22px;color:#392b68;background:#f3e9ff;box-shadow:0 5px 0 #7253aa22}
+.cat:nth-child(2){background:#ddf5eb}.cat:nth-child(3){background:#ffebd4}
+.cat .cat-icon{font-size:48px;width:62px;text-align:center}
+.cat small{display:block;font-size:15px;color:#766d8a;font-weight:650;margin-top:3px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#857e9b;font-weight:850;font-size:15px;margin-bottom:16px}
+.progress{height:11px;background:#efebfb;border-radius:30px;overflow:hidden;margin-bottom:22px}
+.progress > span{display:block;background:linear-gradient(90deg,#8a6af4,#5ccfb0);height:100%;border-radius:30px;transition:width .35s}
+.question{text-align:center;font-weight:950;font-size:clamp(23px,6vw,32px);min-height:70px;line-height:1.2;display:flex;align-items:center;justify-content:center;color:#49339b;padding:0 5px 12px}
+.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.answer{position:relative;display:flex;align-items:center;justify-content:center;min-height:clamp(170px,45vw,247px);border:5px solid transparent;border-radius:28px;box-shadow:0 7px 0 #7560a320,0 12px 18px #57418312;transition:transform .12s,border-color .18s;overflow:hidden;padding:7px}
+.answer:active{transform:scale(.96)}
+.answer:nth-child(1){background:linear-gradient(135deg,#e4f5ff,#cce9ff)}
+.answer:nth-child(2){background:linear-gradient(135deg,#fff1dd,#ffe1dd)}
+.answer .picture{font-size:clamp(83px,25vw,141px);line-height:1.2;filter:drop-shadow(0 8px 3px #4f3f5c17);display:block;transition:transform .3s}
+.answer .picture.double{font-size:clamp(50px,15vw,87px)}
+.answer.correct{border-color:#40c58b;background:#e0ffe9}
+.answer.wrong{border-color:#ffadac}
+.answer.correct .picture{transform:scale(1.13)}
+.answer[disabled]{cursor:default}
+.check{font-size:28px;position:absolute;top:9px;right:9px;line-height:1;visibility:hidden}
+.answer.correct .check{visibility:visible}
+.feedback{text-align:center;min-height:72px;display:flex;align-items:center;justify-content:center;padding:12px 0 2px;font-size:21px;font-weight:900;color:#7151af;line-height:1.25}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding-top:5px}
+.action{border:0;background:#eee9ff;color:#5136aa;border-radius:20px;padding:15px 17px;font-size:17px;font-weight:850;min-height:53px}
+.action.next{background:#7854ed;color:white;box-shadow:0 5px 0 #512fae}
+.action[disabled]{opacity:.46;box-shadow:none}
+.finish{text-align:center;padding:28px 10px 20px}
+.finish .trophy{font-size:100px;margin:0 0 14px}
+.finish strong{font-size:28px;color:#48319a}
+.finish p{font-size:20px;line-height:1.45;color:#736885}
+.finish button{background:#7854ed;color:#fff;border:0;padding:18px 25px;font-size:21px;font-weight:900;border-radius:21px;margin:10px}
+.note{max-width:620px;margin:14px auto 0;text-align:center;font-size:14px;color:#747087;line-height:1.5}
+.hidden{display:none!important}
+.spark{position:absolute;top:5px;pointer-events:none;font-size:27px;animation:float 1s ease-out forwards;z-index:4}
+@keyframes float{0%{opacity:1;transform:translateY(45px) rotate(0)}100%{opacity:0;transform:translateY(-120px) rotate(50deg)}}
+@media(max-width:365px){.stage{padding:17px 10px}.answer{min-height:150px;border-radius:20px}.question{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<header><a href="./index.html" class="home">← 🏠 Ойындар</a><div class="stars" id="stars">⭐ 0</div></header>
+<h1>🧩 Екі сурет</h1>
+<p class="subtitle" id="subtitle">Дұрыс суретті таңда, Альтаир!</p>
+<section class="stage" id="stage">
+<div id="menu"><div class="question">Қай ойынды ойнаймыз?</div>
+<div class="category-grid">
+<button class="cat" type="button" data-category="words"><span class="cat-icon">🍎</span><span>Сөзді тап<small>Заттар, жануарлар, жемістер</small></span></button>
+<button class="cat" type="button" data-category="logic"><span class="cat-icon">🧠</span><span>Ойлан да тап<small>Жеңіл логикалық сұрақтар</small></span></button>
+<button class="cat" type="button" data-category="actions"><span class="cat-icon">🏃</span><span>Не істеп жатыр?<small>Қимылдарды ажырату</small></span></button>
+</div></div>
+<div id="quiz" class="hidden">
+<div class="topline"><span id="categoryName"></span><span id="count">1 / 10</span></div>
+<div class="progress"><span id="progress"></span></div>
+<div class="question" id="question" aria-live="polite"></div>
+<div class="answers" id="answers"></div>
+<div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+<div class="actions">
+<button class="action" id="repeat" type="button">🔊 Қайталау</button>
+<button class="action next" id="next" type="button" disabled>Келесі ➡️</button>
+</div>
+</div>
+<div id="finish" class="finish hidden">
+<div class="trophy">🏆</div>
+<strong>Жарайсың, Альтаир!</strong>
+<p>Барлық тапсырма орындалды!<br>Тағы ойнаймыз ба?</p>
+<button type="button" id="again">🔄 Тағы ойна</button>
+<button type="button" id="other">🏠 Басқа ойын</button>
+</div>
+</section>
+<p class="note">Сұрақтарды тыңдап, екі үлкен суреттің бірін бас. Қате жауап үшін жаза жоқ. Қазақша дыбыс телефондағы дауысқа байланысты.</p>
+</main>
+<script>
+(() => {
+'use strict';
+const words=[
+['алма','🍎','🥕'],['доп','⚽','🍎'],['мысық','🐱','🐶'],['ит','🐶','🐻'],
+['аю','🐻','🐰'],['қоян','🐰','🐸'],['сиыр','🐮','🦁'],['балық','🐟','🐦'],
+['құс','🐦','🐟'],['гүл','🌻','🚗'],['күн','☀️','🌙'],['ай','🌙','☀️'],
+['үй','🏠','🚗'],['машина','🚗','🚲'],['велосипед','🚲','🚂'],
+['кітап','📚','🧸'],['нан','🍞','🧢'],['су','💧','🔥'],
+['сүт','🥛','⚽'],['шар','🎈','🍎'],['көйлек','👗','👟'],
+['аяқкиім','👟','🧢'],['қасық','🥄','✏️'],['қарындаш','✏️','🥄'],
+['құлпынай','🍓','🍐'],['алмұрт','🍐','🥦'],['банан','🍌','🍅'],
+['ұшақ','✈️','🚗'],['пойыз','🚂','✈️'],['қолшатыр','☂️','🧤'],
+['жұлдыз','⭐','☂️'],['балапан','🐤','🐟'],['көбелек','🦋','🐜'],
+['түлкі','🦊','🐼'],['піл','🐘','🐭'],['тасбақа','🐢','🦒'],
+['балмұздақ','🍦','🥦'],['торт','🎂','🚗'],['сәбіз','🥕','🍩'],
+['жүзім','🍇','🥒'],['құлын','🐴','🐱'],['қасқыр','🐺','🦆']
+].map(([name,correct,wrong])=>({question:name+' қайда?',correct,wrong,word:name}));
+const logic=[
+['Қайсысы үлкен?','🐘','🐭','піл'],
+['Қайсысы кішкентай?','🐭','🐘','тышқан'],
+['Қайсысы ұшады?','🦅','🐢','құс'],
+['Қайсысы суда жүзеді?','🐟','🐔','балық'],
+['Қайсысы ыстық?','🔥','❄️','от'],
+['Қайсысы суық?','❄️','🔥','қар'],
+['Жаңбырда не керек?','☂️','🕶️','қолшатыр'],
+['Қайсысы суда жүреді?','⛵','🚗','қайық'],
+['Қайсысы аспанда ұшады?','✈️','🚂','ұшақ'],
+['Қайсысы жеміс?','🍎','🥕','алма'],
+['Қайсысы көкөніс?','🥕','🍌','сәбіз'],
+['Қайсысы дөңгелек?','⚽','🟦','доп'],
+['Қайсысы төртбұрыш?','🟦','⚽','шаршы'],
+['Тісті немен тазалаймыз?','🪥','🥄','тіс щеткасы'],
+['Шашты немен тараймыз?','🪮','🪥','тарақ'],
+['Қайсысы түнде көрінеді?','🌙','☀️','ай'],
+['Қайсысы күндіз жарқырайды?','☀️','🌙','күн'],
+['Қайсысы секіреді?','🐸','🐌','бақа'],
+['Қайсысы сүт береді?','🐄','🐔','сиыр'],
+['Қайсысы бал жасайды?','🐝','🦋','ара'],
+['Қайсысы ағашта өседі?','🍎','🥔','алма'],
+['Аяғымызға не киеміз?','👟','🧢','аяқкиім'],
+['Қайсысымен сурет саламыз?','🖍️','🥄','бояу қарындашы'],
+['Қайсысы ұя салады?','🐦','🐟','құс']
+].map(([question,correct,wrong,word])=>({question,correct,wrong,word}));
+const actions=[
+['Кім ұйықтап жатыр?','😴','🏃','ұйықтап жатыр'],
+['Кім жүгіріп жүр?','🏃','🧘','жүгіріп жүр'],
+['Кім ән айтып тұр?','🧑‍🎤','🧑‍🍳','ән айтып тұр'],
+['Кім тамақ пісіріп жатыр?','🧑‍🍳','🧑‍🎤','тамақ пісіріп жатыр'],
+['Кім кітап оқып отыр?','🧒📖','🧒⚽','кітап оқып отыр'],
+['Кім доп ойнап жүр?','🧒⚽','🧒📖','доп ойнап жүр'],
+['Кім тісін тазалап жатыр?','🧒🪥','🧒🍦','тісін тазалап жатыр'],
+['Кім сурет салып отыр?','🧒🖍️','🧒🧸','сурет салып отыр'],
+['Кім су ішіп жатыр?','🧒🥛','🧒🚲','су ішіп жатыр'],
+['Кім суда жүзіп жүр?','🏊','🚴','жүзіп жүр'],
+['Кім велосипед теуіп жүр?','🚴','🏊','велосипед теуіп жүр'],
+['Кім билеп жүр?','💃','😴','билеп жүр'],
+['Кім қолын жуып жатыр?','🧼🙌','🧒📚','қолын жуып жатыр'],
+['Кім тамақ ішіп отыр?','🧒🍽️','🧒⚽','тамақ ішіп отыр']
+].map(([question,correct,wrong,word])=>({question,correct,wrong,word}));
+const categories={words,logic,actions};
+const titles={words:'Сөзді тап 🍎',logic:'Ойлан да тап 🧠',actions:'Не істеп жатыр? 🏃'};
+const $=id=>document.getElementById(id);
+let category='words',deck=[],position=0,score=0,done=false,locked=false,nextTimer=null,voiceTimer=null,chosenSide=-1;
+function shuffle(input){const a=input.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function voice(s){
+ if(!window.speechSynthesis)return;
+ try{
+  window.speechSynthesis.cancel();
+  const utter=new SpeechSynthesisUtterance(s);
+  utter.lang='kk-KZ';utter.rate=.81;utter.pitch=1.08;
+  const voices=window.speechSynthesis.getVoices();
+  const kazakh=voices.find(v=>v.lang.toLowerCase().replace('_','-').startsWith('kk'));
+  if(kazakh)utter.voice=kazakh;
+  window.speechSynthesis.speak(utter);
+ }catch(e){}
+}
+function stop(){clearTimeout(nextTimer);clearTimeout(voiceTimer);nextTimer=null;voiceTimer=null;try{speechSynthesis.cancel()}catch(e){}}
+function changeScreen(show){
+ for(const id of ['menu','quiz','finish'])$(id).classList.toggle('hidden',id!==show);
+}
+function begin(kind){
+ stop();category=kind;deck=shuffle(categories[kind]).slice(0,10);position=0;score=0;
+ $('stars').textContent='⭐ 0';$('subtitle').textContent='Тыңда, ойлан, дұрыс суретті таңда!';
+ changeScreen('quiz');render();
+}
+function render(){
+ stop();done=false;locked=false;chosenSide=Math.random()<.5?0:1;
+ if(position>=deck.length){finish();return}
+ const task=deck[position];
+ $('categoryName').textContent=titles[category];$('count').textContent=(position+1)+' / '+deck.length;
+ $('progress').style.width=Math.round(position/deck.length*100)+'%';
+ $('question').textContent=task.question;
+ $('feedback').textContent='Суретті таңда! 👆';
+ $('next').disabled=true;
+ $('answers').innerHTML='';
+ const variants=chosenSide===0?[task.correct,task.wrong]:[task.wrong,task.correct];
+ for(let i=0;i<2;i++){
+  const b=document.createElement('button');b.className='answer';b.type='button';
+  b.setAttribute('aria-label',i===chosenSide?'Дұрыс сурет: '+task.word:'Басқа сурет');
+  const art=document.createElement('span');art.className='picture'+(Array.from(variants[i]).length>4?' double':'');
+  art.textContent=variants[i];
+  const check=document.createElement('span');check.className='check';check.textContent='✅';
+  b.append(art,check);b.addEventListener('click',()=>choose(i,b));$('answers').appendChild(b);
+ }
+ // First question is read after the child's initial category tap.
+ voice(task.question);
+}
+function choose(i,b){
+ if(locked)return;
+ if(i===chosenSide){
+  locked=true;done=true;score++;$('stars').textContent='⭐ '+score;
+  b.classList.add('correct');$('feedback').textContent='Жарайсың! '+deck[position].word+'! 🎉';
+  $('next').disabled=false;
+  voice('Жарайсың! '+deck[position].word);
+  burst();
+  nextTimer=setTimeout(next,2100);
+ }else{
+  b.classList.add('wrong');$('feedback').textContent='Тағы ойланып көр! 💛';
+  clearTimeout(voiceTimer);voiceTimer=setTimeout(()=>voice('Тағы ойланып көр. '+deck[position].question),250);
+  setTimeout(()=>{if(!locked)b.classList.remove('wrong')},700);
+ }
+}
+function burst(){
+ const stage=$('stage');
+ for(let i=0;i<7;i++){
+  const node=document.createElement('span');node.className='spark';node.textContent=['⭐','✨','🌟','💜'][i%4];
+  node.style.left=(12+Math.random()*72)+'%';node.style.animationDelay=(i*.06)+'s';
+  stage.appendChild(node);setTimeout(()=>node.remove(),1700)
+ }
+}
+function next(){
+ if(!done)return;
+ stop();position++;render();
+}
+function finish(){
+ stop();changeScreen('finish');$('progress').style.width='100%';$('subtitle').textContent='Өте жақсы!';
+ voice('Жарайсың, Альтаир! Сен бәрін орындадың!');
+}
+function backMenu(){stop();changeScreen('menu');$('subtitle').textContent='Дұрыс суретті таңда, Альтаир!'}
+document.querySelectorAll('[data-category]').forEach(btn=>btn.addEventListener('click',()=>begin(btn.dataset.category)));
+$('repeat').addEventListener('click',()=>{stop();voice(deck[position].question)});
+$('next').addEventListener('click',next);
+$('again').addEventListener('click',()=>begin(category));
+$('other').addEventListener('click',backMenu);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});
+window.addEventListener('pagehide',stop);
+})();
+</script>
+</body></html>
